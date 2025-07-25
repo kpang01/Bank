@@ -8,34 +8,42 @@ import org.springframework.stereotype.Service;
 import com.PangProject.entity.ProductEntity;
 import com.PangProject.repo.IProductRepo;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class ProductServiceImpl implements IProductService {
 
-
+	
+	@Autowired
+	private IProductRepo productRepo;
+	 
     @Override
     public List<ProductEntity> getAllProducts() {
-        return null;
+        return productRepo.findAll();
     }
 
     @Override
     public ProductEntity getProductById(Long id) {
-        return null;
+        return productRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("Account not found"));
     }
 
     @Override
     public ProductEntity createProduct(ProductEntity product) {
-        return null;
+        return productRepo.save(product);
     }
 
     @Override
     public ProductEntity updateProduct(Long id, ProductEntity updatedProduct) {
-        return null;
+        ProductEntity existing = getProductById(id);
+        existing.setProductName(updatedProduct.getProductName());
+        existing.setDescription(updatedProduct.getDescription());
+        return productRepo.save(existing);
     }
     
     
 
     @Override
     public void deleteProduct(Long id) {
-        
+        productRepo.deleteById(id);
     }
 }

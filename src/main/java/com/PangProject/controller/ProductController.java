@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.PangProject.mapper.ProductMapper;
 import com.PangProject.model.ProductDTO;
 import com.PangProject.service.IProductService;
+import com.demo.exceptions.DemoAppException;
 
 import lombok.AllArgsConstructor;
 
@@ -29,8 +30,7 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<ProductDTO>> getAllProducts() {
-//    	throw new DemoAppException("Demo exception testing");
-    	return null;
+    	throw new DemoAppException("Demo exception testing");
     }
 
     @GetMapping("/{id}")
